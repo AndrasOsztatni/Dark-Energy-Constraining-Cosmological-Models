@@ -11,7 +11,7 @@ Z_MIN = 0
 Z_MAX = 2
 Z_GRID = np.linspace(Z_MIN, Z_MAX, 1000)
 C_LIGHT = 299792.458
-OMEGA_LINSPACE = np.linspace(0.2, 0.4, 20)
+OMEGA_LINSPACE = np.linspace(0.2, 1, 100)
 H0_LINSPACE = np.linspace(60, 80, 100)
 
 #-----Functions-----
