@@ -11,8 +11,8 @@ Z_MIN = 0
 Z_MAX = 2
 Z_GRID = np.linspace(Z_MIN, Z_MAX, 1000)
 C_LIGHT = 299792.458
-OMEGA_LINSPACE = np.linspace(0.2, 1, 100)
-H0_LINSPACE = np.linspace(60, 80, 100)
+OMEGA_LINSPACE = np.linspace(0.2, 0.4, 100)
+H0_LINSPACE = np.linspace(65, 75, 100)
 
 #-----Functions-----
 def hubble_parameter(z:np.ndarray, omega_m: float, h0: float ) -> np.ndarray:
@@ -150,6 +150,15 @@ def main():
   print(om_min, h0_min)
   fig, ax = plt.subplots(figsize=(8, 6))
   contour = ax.contourf(Om_grid, H0_grid, Chi2_grid, levels=100, cmap="viridis")
+  specific_levels = [chi_min + 2.30, chi_min + 6.18, chi_min + 11.83]
+  line_contours = ax.contour(
+     Om_grid, H0_grid, Chi2_grid, levels=specific_levels, colors="white", linestyles=["-", "--", ":"], linewidths=1.5
+  )
+  ax.clabel(line_contours, inline=True, fontsize=10, fmt={
+     specific_levels[0]: r"$1\sigma$",
+     specific_levels[1]: r"$2\sigma$",
+     specific_levels[2]: r"$3\sigma$",
+  })
   cbar = fig.colorbar(contour)
   cbar.set_label(r"$\chi^2$", fontsize=12)
   ax.set_xlabel(r"Matter Density ($\Omega_m$)", fontsize=12)
@@ -189,7 +198,7 @@ def main():
   ax3d.set_ylabel(r"Hubble Constant ($H_0$) [km/s/Mpc]", fontsize=11, labelpad=10)
   ax3d.set_zlabel(r"$\chi^2$", fontsize=11, labelpad=10)
   ax3d.set_title(r"3D $\chi^2$ Surface over $(\Omega_m, H_0)$", fontsize=14)
-  ax3d.view_init(elev=30, azim=-125)
+  ax3d.view_init(elev=15, azim=5)
   ax3d.legend(loc="upper left")
 
   fig.savefig("Chi2_3D_surface.pdf", format="pdf", bbox_inches="tight")
@@ -210,7 +219,7 @@ def main():
   plt.savefig("Union2.1dataset_w_bestfit.pdf", format="pdf")
   plt.close(fig)
 
-  print("All plots successfully generated and saved as professional PDFs!")
+  print("All plots successfully generated and saved as PDFs!")
 
 
 
